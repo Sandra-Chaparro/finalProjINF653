@@ -4,7 +4,8 @@ const app = express();
 const connectDB = require("./config/dbConn");
 const mongoose = require("mongoose");
 const path = require("path");
-// const cors = require("cors");
+const { verify } = require("crypto");
+const cors = require("cors");
 // const corsOptions = require("./config/corsOptions");
 // const { logger } = require("./middleware/logEvents");
 // const errorHandler = require("./middleware/errorHandler");
@@ -14,13 +15,16 @@ const PORT = process.env.PORT || 3500;
 //Connect to mongoDB
 connectDB();
 
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 //Routes
 app.use("^/$ || index(.html)?", require("./public/root"));
-app.use("/states", require("./public/api/states"));
 app.use("/", require("./public/api/states"));
-app.use("/", require("./public/api/states"));
-
-//app.use("/:state", require("./public/api/states"));
 
 app.all("*", (req, res) => {
   res.status(404);
