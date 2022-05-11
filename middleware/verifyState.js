@@ -9,7 +9,9 @@ const verifyState = () => {
     const isState = stateCodes.find((code) => code === stateAbbr); // if match a code from one of the states
 
     if (!isState)
-      return res.status(404).json("Invalid state abbreviation parameter");
+      return res
+        .status(404)
+        .json({ message: `Invalid state abbreviation parameter` });
     if (isState) req.params.state = stateAbbr;
     next();
   };
