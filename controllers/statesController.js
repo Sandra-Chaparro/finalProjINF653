@@ -119,7 +119,7 @@ const getStateFunFact = async (req, res) => {
       .json({ message: `No Fun Facts found for ${req.params.state}` });
   }
 
-  await res.json(funfact);
+  await res.status(200).json({ funfact: funfact });
 };
 
 const getStateCapital = async (req, res) => {
