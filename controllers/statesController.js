@@ -47,7 +47,7 @@ const getAllStates = async (req, res) => {
         }
       }
 
-      await res.send(contiguousStates);
+      await res.json(contiguousStates);
     }
 
     // A L L        S T A T E S
