@@ -116,7 +116,7 @@ const getStateFunFact = async (req, res) => {
   } else {
     return res
       .status(404)
-      .json({ message: `No Fun Facts found for ${req.params.state}` });
+      .json({ message: `No Fun Facts found for ${state.state}` });
   }
 
   await res.status(200).json({ funfact: funfact });
@@ -295,10 +295,10 @@ const patchFunFact = async (req, res) => {
   //if there is no index
   if (!index) {
     return res
-      .status(400)
+      .status(404)
       .json({ message: "State fun facts index value required" });
   } else if (!funfact) {
-    return res.status(400).json({ message: "State fun facts value required" });
+    return res.status(404).json({ message: "State fun facts value required" });
   }
   const stateInMongo = await States.findOne({
     stateCode: req.params.state,
@@ -352,10 +352,10 @@ const deleteFunFact = async (req, res) => {
   }).exec();
   if (!stateInMongo?.funfacts) {
     return res
-      .status(400)
+      .status(404)
       .json({ message: `No fun facts found for ${states?.state}` });
   } else if (index < 1 || index > stateInMongo?.funfacts?.length) {
-    return res.status(400).json({ message: `No fun fact found at that index` });
+    return res.status(404).json({ message: `No fun fact found at that index` });
   }
   let newFunFacts = stateInMongo.funfacts;
   newFunFacts.splice(index - 1, 1);
