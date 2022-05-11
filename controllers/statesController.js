@@ -113,6 +113,10 @@ const getStateFunFact = async (req, res) => {
   if (state.funfacts) {
     factArray = [...state.funfacts];
     funfact = factArray[Math.floor(Math.random() * factArray.length)];
+  } else {
+    return res
+      .status(404)
+      .json({ message: `No Fun Facts found for ${req.params.state}` });
   }
 
   await res.json(funfact);

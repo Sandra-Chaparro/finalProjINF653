@@ -10,6 +10,8 @@ const verifyState = () => {
 
     if (!isState)
       return res.status(400).json("Invalid state abbreviation parameter");
+    if (isState == "undefined")
+      return res.status(400).json("Invalid state abbreviation parameter");
     if (isState) req.params.state = stateAbbr;
     next();
   };
