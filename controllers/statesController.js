@@ -304,11 +304,9 @@ const patchFunFact = async (req, res) => {
     stateCode: req.params.state,
   }).exec();
   if (!stateInMongo?.funfacts) {
-    return res
-      .status(404)
-      .json({ message: `No Fun Facts found for ${states?.state}` });
+    return res.send({ message: `No Fun Facts found for ${states?.state}` });
   } else if (index < 1 || index > stateInMongo?.funfacts?.length) {
-    return res.status(400).json({
+    return res.send({
       message: `No Fun Fact found at that index for ${states?.state}`,
     });
   }
@@ -353,11 +351,9 @@ const deleteFunFact = async (req, res) => {
     stateCode: req.params.state,
   }).exec();
   if (!stateInMongo?.funfacts) {
-    return res
-      .status(404)
-      .json({ message: `No Fun Facts found for ${states?.state}` });
+    return res.send({ message: `No Fun Facts found for ${states?.state}` });
   } else if (index < 1 || index > stateInMongo?.funfacts?.length) {
-    return res.status(404).json({
+    return res.send({
       message: `No Fun Fact found at that index for ${states?.state}`,
     });
   }
