@@ -196,7 +196,10 @@ const getStatePopulation = async (req, res) => {
   }
   const state = newStatesArray.find((state) => state.code === req.params.state);
 
-  await res.json({ state: state.state, population: state.population });
+  await res.json({
+    state: state.state,
+    population: state.population.toLocaleString(),
+  });
 };
 
 const getStateAdmission = async (req, res) => {
