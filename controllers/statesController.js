@@ -267,6 +267,21 @@ const addFunFact = async (req, res) => {
 
 const patchFunFact = async (req, res) => {
   let statesFromDB = await statesFromMongo.find().exec();
+  const newStatesArray = data.states.map((individualState) => {
+    let mergeStates;
+    let statesMatch = statesFromDB.find(
+      (st) => st.stateCode === individualState.code
+    );
+    if (statesMatch) {
+      mergeStates = {
+        ...individualState,
+        funfacts: statesMatch.funfacts,
+      };
+    } else if (statesMatch == undefined) {
+      return individualState;
+    }
+    return mergeStates;
+  });
   const state = newStatesArray.find((state) => state.code === req.params.state);
   const index = req?.body?.index;
   const funfact = req?.body?.funfact;
